@@ -1,0 +1,2 @@
+# WunderVision Notes
+I have a blog [here: https://www.wundervisionengineering.com/](https://www.wundervisionengineering.com/) however, it is for more refined and completed thoughts. This repository is meant to be just a random grouping of thoughts and things I've learned.
