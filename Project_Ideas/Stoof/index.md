@@ -43,10 +43,10 @@ main[Main Screen]-->view(Select View Items)-->viewscreen[Items List Screen]
 #### I want to remove an item
 ``` mermaid
 flowchart
-areyousure@{ shape: diamond, label: "Are You Sure?" }
-areyousure-->start
-areyousure--Remove Item-->mainscreen[Previous Screen]
 start[Item Details Screen]-->remove(Remove Item)-->areyousure
+areyousure@{ shape: diamond, label: "Are You Sure?" }
+areyousure-- No -->start
+areyousure-- Yes -->mainscreen[Items List Screen]
 ```
 ### Edge Cases
 - Handling items of multiple quantities
@@ -72,3 +72,59 @@ When storing pictures, this can just be a file server location that is mounted b
 I'm most comfortable with C# therefore ASP.Net is what I'm going to choose for the backend service.
 
 Front end does not have to be realtime. Sticking with simple Razor pages should be good enough.
+
+## System Context Diagram Overview
+At a high level, Stoof consists of:
+- Users (interacting via a web UI)
+- Frontend (Razor Pages UI)
+- Backend (ASP.NET Core service)
+- Database (SQLite for structured data)
+- File Storage (NAS-mounted directory for images)
+- Containerization (Docker for deployment)
+
+
+### Actors & Components
+**Actors (External Entities)**
+- User: Interacts with Stoof via a web browser.
+- NAS: Provides storage for images and hosts the containerized application.
+
+**Core Components**
+- Frontend (Razor Pages UI)
+- Displays inventory and locations.
+- Allows CRUD operations on items and locations.
+- Handles image uploads and hotspot selection.
+- Backend (ASP.NET Core API)
+- Processes requests from the frontend.
+- Manages SQLite database interactions.
+- Handles file storage operations (saving/retrieving images).
+- Implements business logic for temporary locations.
+- Database (SQLite)
+- Stores structured data (items, locations, categories, pictures).
+- Supports search, filtering, and sorting.
+- File Storage (NAS)
+- Stores images associated with items and locations.
+- Provides a mounted directory accessible by the container.
+
+```mermaid
+graph LR
+    User -- HTTP Requests --> Frontend
+    Frontend -- API Calls --> Backend
+    Backend -- CRUD Operations --> Database
+    Backend -- File Operations --> NAS
+    NAS -- Mounted Storage --> Backend
+```
+
+#### Key Interactions
+- User adds an item
+    - User interacts with the Frontend (Razor Pages UI).
+    - Frontend sends a request to the Backend API.
+    - Backend stores item details in SQLite and saves images to NAS.
+- User searches for an item
+    - Frontend sends a query to the Backend API.
+    - Backend retrieves data from SQLite and returns results.
+- User updates an item's location
+    - Frontend sends an update request to the Backend API.
+    - Backend modifies the item's location in SQLite.
+- User views an item's image and selects hotspots
+    - Frontend retrieves image from NAS via the Backend API.
+    - User selects hotspots, which are stored in SQLite.
