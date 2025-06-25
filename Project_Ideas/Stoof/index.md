@@ -43,7 +43,10 @@ main[Main Screen]-->view(Select View Items)-->viewscreen[Items List Screen]
 #### I want to remove an item
 ``` mermaid
 flowchart
-Start[Item Details Screen]-->remove(Remove Item)-->areyousure([Are you sure?])-->goback/remove(Go Back or Delete)
+areyousure@{ shape: diamond, label: "Are You Sure?" }
+areyousure-->start
+areyousure--Remove Item-->mainscreen[Previous Screen]
+start[Item Details Screen]-->remove(Remove Item)-->areyousure
 ```
 ### Edge Cases
 - Handling items of multiple quantities
