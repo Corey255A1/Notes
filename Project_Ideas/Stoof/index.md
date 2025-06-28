@@ -27,30 +27,9 @@ I also wanted to take this oppotunity to work on my software architecture and pl
     - Specify hotspots on images to show locations of sublocations
     - Define custom location categories
 
-### Workflow
-#### I want to add an item
-``` mermaid
-flowchart
-main[Main Screen]-->add(Select Add Item)-->addscreen[Add Item Screen]
--->useradd([Required Name. Optional photo, location])-->save(Save Item)
-```
-#### I want to view item details
-``` mermaid
-flowchart
-main[Main Screen]-->view(Select View Items)-->viewscreen[Items List Screen]
--->userview([Search, Filter options])-->select(Select Item)-->viewitemscreen[Item Details Screen]
-```
-#### I want to remove an item
-``` mermaid
-flowchart
-start[Item Details Screen]-->remove(Remove Item)-->areyousure
-areyousure@{ shape: diamond, label: "Are You Sure?" }
-areyousure-- No -->start
-areyousure-- Yes -->mainscreen[Items List Screen]
-```
 ### Edge Cases
 - Handling items of multiple quantities
-    - Things like Chargers, Towels, Clothing, paper towel rolls
+    - Things like Chargers, Towels, Clothing, Paper Towel Rolls
     - Also things that are similar but different (different colors or brands, year models)
 
 
@@ -72,8 +51,9 @@ When storing pictures, this can just be a file server location that is mounted b
 I'm most comfortable with C# therefore ASP.Net is what I'm going to choose for the backend service.
 
 Front end does not have to be realtime. Sticking with simple Razor pages should be good enough.
+The frontend will use a
 
-## System Context Diagram Overview
+## System Context Overview
 At a high level, Stoof consists of:
 - Users (interacting via a web UI)
 - Frontend (Razor Pages UI)
